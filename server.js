@@ -25,6 +25,17 @@ app.get('/api/pets', async (req, res, next)=> {
   }
 })
 
+app.delete('/api/pets/:id', async (req, res, next)=> {
+  try{
+    const pet = await Pet.findByPk(req.params.id)
+    await pet.destroy();
+    res.sendStatus(204)
+  }
+  catch (ex) {
+    next(ex)
+  }
+})
+
 const start = async () => {
   try {
     console.log('hello')
